@@ -1,0 +1,27 @@
+{
+  "name": "bimplus-renderer-example",
+  "version": "0.0.1",
+  "author": "",
+  "description": "Bimplus Renderer Example Application",
+  "private": true,
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "license": "MIT",
+  "scripts": {
+    "serve": "live-server --verbose"
+  },
+  "devDependencies": {
+    "bimplus-renderer": "0.2.10",
+    "bimplus-webclient": "0.0.1",
+    "bimplus-websdk": "0.0.67",
+    "jquery": "2.2.4",
+    "requirejs": "2.0.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "6.26.0",
+    "ie-array-find-polyfill": "1.1.0",
+    "material-design-lite": "1.3.0"
+  }
+}

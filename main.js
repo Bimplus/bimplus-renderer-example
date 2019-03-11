@@ -15,7 +15,7 @@ define(function (require) {
         var password = $( "#password" ).val();
 
         // Make authorization request to Bimplus, providing user name, password and application id
-        api.authorize.post(user,password, 'XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX').done(function(data,status,xhr) {
+        api.authorize.post(user,password, '5F43560D-9B0C-4F3C-85CB-B5721D098F7B').done(function(data,status,xhr) {
             window.location.href = "/projects.html?token="+data.access_token;
         }).fail(function(data) {
             // Authorization failed

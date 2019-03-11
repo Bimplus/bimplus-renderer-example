@@ -2,11 +2,23 @@ Bimplus Renderer integration example
 =========
 
 This small application demonstrates the usage of the bimplus websdk components
-- bimplus-websdk
-- bimplus-webclient
-- bimplus-renderer
+- [bimplus-websdk](https://doc.allplan.com/display/bimpluspublic/Bimplus+Web+SDK+Reference)
+- [bimplus-webclient](https://doc.allplan.com/display/bimpluspublic/Web+Client+Messages)
+- [bimplus-renderer](https://doc.allplan.com/display/bimpluspublic/Bimplus+Renderer+Reference)
+
+Packages are available in [npmjs](https://www.npmjs.com/search?q=bimplus) or in the
+Bimplus repositories at [github](https://github.com/bimplus).
 
 without the use of any js framework.
+
+Additionally it shows how to use the bimplus-renderer package to
+- Load individual models
+- Toggle models on or off
+- Set up section planes
+- Use the object isolation feature (Transparent, clipped and hidden)
+- Zoom to selected objects
+- Set up and reset the camera
+- Add custom [threejs](https://threejs.org/) objects to the scene
 
 How to build
 ------------
@@ -15,7 +27,7 @@ How to build
 [http://www.nodejs.org/](http://www.nodejs.org/)
 
 ### Install global npm modules
-Install live-server package for auto reload and convient development
+Install live-server package for auto reload and convenient development
 
     npm install -g live-server
 

@@ -1,70 +1,74 @@
 body {
-    background-color: #f5f5f5;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
- }
+  background-color: #f5f5f5;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
 
- .full-area {
-   height: 100%;
-   width: 100%
- }
+.full-area {
+  height: 100%;
+  width: 100%;
+}
 
- .full-height {
-    height: 100%;
-    position: fixed
-  }
+.full-height {
+  height: 100%;
+  position: fixed;
+}
 
-  div.center {
-    width: 80%; 
-    margin: 0 auto;
-    margin-top: 20px;
-  }
+div.center {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
 
-  .hud-menu{
-    width: 300px;
-    padding: 20px;
-  }
+.hud-menu {
+  width: 400px;
+  padding: 20px;
+}
 
-  div.loginCard {
-    width: 300px; 
-    margin: 0 auto;
-    margin-top: 300px;
-  }
+div.loginCard {
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 300px;
+}
 
-  div.loginCardMedia {
-      background-color: white
-  }
+div.loginCardMedia {
+  background-color: white;
+}
 
-  .projectsButton {
-      position: fixed !important;
-      margin-top: 10px;
-      margin-left: 10px;
-  }
+label.mdl-switch {
+  width: 40px;
+}
 
-  .centerSpinner {
-    position: fixed;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-  }
+.projectsButton {
+  position: fixed !important;
+  margin-top: 10px;
+  margin-left: 10px;
+}
 
-  .project-selection-button {
-    margin-left: 20px !important;
-  }
+.centerSpinner {
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
 
-  div.objectPropertiesCard {
-    z-index:1;
-    position: absolute;
-    right: 300px;
-    width: 300px;
-    height: 800px;
-    display: none;
-    padding-top: 20px;
+.project-selection-button {
+  margin-left: 20px !important;
+}
+
+div.objectPropertiesCard {
+  z-index: 1;
+  position: absolute;
+  right: 300px;
+  width: 300px;
+  height: 800px;
+  display: none;
+  padding-top: 20px;
 }
 
 .objectPropertiesIFrame {

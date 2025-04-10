@@ -1,49 +1,56 @@
 define(function (require) {
+  // Load websdk
+  let WebSdk = require("bimplus/websdk");
 
-    // Load websdk
-    var WebSdk = require('bimplus/websdk');
+  // Load Client integration
+  let WebClient = require("bimplus/webclient");
 
-    // Load Renderer
-    var Renderer = require('bimplus/renderer');
+  // Use environment dev,stage or prod
+  let environment = WebClient.getUrlParameter("env");
 
-    // Load Client integration
-    var WebClient = require('bimplus/webclient');
+  // Initalize api wrapper
+  let api = new WebSdk.Api(WebSdk.createDefaultConfig(environment));
 
-    // Use environment dev,stage or prod
-    var environment = "stage";
+  // Get the token from the url paremter list and set api token
+  let token = WebClient.getUrlParameter("token");
+  api.setAccessToken(token);
 
-    // Initalize api wrapper
-    var api = new WebSdk.Api(WebSdk.createDefaultConfig(environment));
+  let currentProject;
+  let currentTeam;
 
-    // Get the token from the url paremter list
-    var token = WebClient.getUrlParameter('token');
+  // Create the external client for communication with the bimplus controls
+  let externalClient = new WebClient.ExternalClient("MyClient");
 
-    var currentProject, currentTeam;
+  let projects = new WebClient.BimPortal(
+    "projects",
+    api.getAccessToken(),
+    externalClient,
+    environment
+  );
 
-    // Set api token
-    api.setAccessToken(token);
-    
-    // Create the external client for communication with the bimplus controls
-    var externalClient = new WebClient.ExternalClient("MyClient");
+  // Initialize the client to listen for messages
+  externalClient.initialize();
 
-    var projects = new WebClient.BimPortal('projects',api.getAccessToken(),externalClient,environment);
+  projects.onTeamChanged = (teamId) => {
+    currentTeam = teamId;
+    console.debug("onTeamChanged newTeam = " + teamId);
+  };
 
-    // Initialize the client to listen for messages
-    externalClient.initialize();
+  projects.onProjectSelected = (prjId) => {
+    currentProject = prjId;
+    console.debug("onProjectSelected newProjectId = " + prjId);
+    window.location.href =
+      "/renderer.html" +
+      "?token=" +
+      token +
+      "&env=" +
+      environment +
+      "&team=" +
+      currentTeam +
+      "&project=" +
+      currentProject;
+  };
 
-    // Add message handler for team changed event
-    externalClient.addMessageHandler("TeamChanged",function(msg){
-        currentTeam = msg.id;
-    });
-
-    // Add message handler for project selected event
-    externalClient.addMessageHandler("ProjectSelected",function(msg){
-        currentProject = msg.id;
-
-        // Go to renderer page with token, team and project added as parameter
-        window.location.href = "/renderer.html?token="+token+"&team="+currentTeam+"&project="+currentProject;        
-    });
-    
-    // Load the project selection
-    projects.load();
+  // Load the project selection
+  projects.load();
 });

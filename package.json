@@ -13,11 +13,11 @@
     "serve": "live-server --verbose"
   },
   "devDependencies": {
-    "bimplus-renderer": "0.3.0",
-    "bimplus-webclient": "0.0.1",
-    "bimplus-websdk": "0.0.67",
-    "jquery": "2.2.4",
-    "requirejs": "2.0.0"
+    "bimplus-renderer": "1.7.15",
+    "bimplus-webclient": "0.1.57",
+    "bimplus-websdk": "1.0.46",
+    "jquery": "3.7.1",
+    "requirejs": "2.3.7"
   },
   "dependencies": {
     "babel-polyfill": "6.26.0",

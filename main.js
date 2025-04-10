@@ -1,25 +1,29 @@
 define(function (require) {
 
-    // Load websdk
-    var WebSdk = require('bimplus/websdk');
+  // Load websdk
+  let WebSdk = require('bimplus/websdk');
+
+  // Initalize api wrapper
+  let api = null;
+
+  $("#loginButton").click(function (event) {
 
     // Use environment dev,stage or prod
-    var environment = "stage";
+    let environment = document.querySelector('input[name="options"]:checked')?.value;
 
-    // Initalize api wrapper
-    var api = new WebSdk.Api(WebSdk.createDefaultConfig(environment));
+    let user = $("#user").val();
+    let password = $("#password").val();
 
-    $( "#loginButton" ).click(function( event ) {
+    api = new WebSdk.Api(WebSdk.createDefaultConfig(environment));
 
-        var user = $( "#user" ).val();
-        var password = $( "#password" ).val();
-
-        // Make authorization request to Bimplus, providing user name, password and application id
-        api.authorize.post(user,password, '5F43560D-9B0C-4F3C-85CB-B5721D098F7B').done(function(data,status,xhr) {
-            window.location.href = "/projects.html?token="+data.access_token;
-        }).fail(function(data) {
-            // Authorization failed
-            alert("Login to Bimplus failed!");
-        });
-    });    
+    // Make authorization request to Bimplus, providing user name, password and application id
+    api.authorize.post(user, password, '5F43560D-9B0C-4F3C-85CB-B5721D098F7B').done(function (data, status, xhr) {
+      window.location.href = "/projects.html"
+        + "?token=" + data.access_token 
+        + "&env="   + environment;
+    }).fail(function (data) {
+      // Authorization failed
+      alert("Login to Bimplus failed!");
+    });
+  });
 });

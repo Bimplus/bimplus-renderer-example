@@ -1,13 +1,8 @@
-#Ignore configuration files
-.idea
-.settings
-.project
-.settings
-*.iml
+#Ignore  worker file, 
+# it was copied to root location by postinstall step of package.json
+partitionVerticesWorker.bimplus-renderer.worker.js
 
-# Ignore third party libs
-node_modules
-bower_components
-
-#Mac OS X
-.DS_Store
+# Node
+/node_modules
+npm-debug.log
+yarn-error.log

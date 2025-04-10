@@ -36,6 +36,8 @@ Open up a normal command line (admin is not needed) and go to the application fo
 
     npm install
 
+Also a post process after node package installation is running to copy a worker file to the home folder (See postinstall script)
+
 ### Develop/Debug example
 goto application folder
 	

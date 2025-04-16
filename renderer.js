@@ -47,6 +47,12 @@ define(function (require) {
       nearClippingPlane: 0.01,
 
       slideThmbSize: [180, 112],
+
+      // Enable usage of frame selecton
+      //   BlueBlue:    (LEFT  MOUSE BUTTON) + SHIFT key
+      //   GreenGreen:  (LEFT  MOUSE BUTTON) + CTRL key
+      //                (RIGHT MOUSE BUTTON) + CTRL key
+      useFrameSelection: true,
     };
 
     let units = {
@@ -77,12 +83,15 @@ define(function (require) {
     };
 
     // Create a viewport inside the given dom element
-    return new Renderer.Viewport3D({
+    const newViewport = new Renderer.Viewport3D({
       settings: settings,
       units: units,
       domElementId: "mainViewportContainer",
+      name: "mainRendererViewport",
       GPUPick: true,
     });
+    console.debug("Renderer created with settings:", newViewport);
+    return newViewport;
   };
 
   // ===============================================================
@@ -94,6 +103,8 @@ define(function (require) {
     viewport3D.resetSelectionMode();
     viewport3D.restoreViewbox();
     viewport3D.setRotationCenter(null);
+    // No object is selected anymore, don't show object properties tab
+    $("#objectProperties").fadeOut();
   };
 
   // Set camera to front view
@@ -179,11 +190,15 @@ define(function (require) {
     if (viewport3D.checkSelectionMode("section") === true) {
       viewport3D.setSelectionMode("section");
       viewport3D.clippingPlanes.onRefreshSectionCuts();
+      viewport3D.showClippingFrames(false); // don't show red frame anymore
+      viewport3D.switchVisibilityOfTransformControls();
+      sectionCutLogic.turnOffSectionCuts();
     }
   };
 
   let useXPlaneAsDefault = function () {
     if (viewport3D.checkSelectionMode("section") === false) {
+      sectionCutLogic.turnOnSectionCuts();
       viewport3D.setSectionAxis("x");
     }
     if (viewport3D.checkSelectionMode("section") === false) {
@@ -193,6 +208,7 @@ define(function (require) {
 
   // Set section plane to x axis
   let sectionX = function () {
+    sectionCutLogic.turnOnSectionCuts();
     viewport3D.setSectionAxis("x");
     if (viewport3D.checkSelectionMode("section") === false) {
       viewport3D.setSelectionMode("section");
@@ -202,6 +218,7 @@ define(function (require) {
 
   // Set section plane to y axis
   let sectionY = function () {
+    sectionCutLogic.turnOnSectionCuts();
     viewport3D.setSectionAxis("y");
     if (viewport3D.checkSelectionMode("section") === false) {
       viewport3D.setSelectionMode("section");
@@ -211,6 +228,7 @@ define(function (require) {
 
   // Set section plane to z axis
   let sectionZ = function () {
+    sectionCutLogic.turnOnSectionCuts();
     viewport3D.setSectionAxis("z");
     if (viewport3D.checkSelectionMode("section") === false) {
       viewport3D.setSelectionMode("section");
@@ -220,6 +238,7 @@ define(function (require) {
 
   // Set section plane to free axis - interactive selection of plane will be started
   let sectionFree = function () {
+    sectionCutLogic.turnOnSectionCuts();
     viewport3D.setSectionAxis("Free");
     viewport3D.clippingPlanes.onRefreshSectionCuts();
   };
@@ -276,6 +295,27 @@ define(function (require) {
     viewport3D.flipOrientation();
     viewport3D.emptySectionCutSceneForSectionCutGeometry();
     viewport3D.clippingPlanes.onRefreshSectionCuts();
+  };
+
+  // ===============================================================
+  let toggleCameraType = function () {
+    const $checkbox = $("#icon-toggle-camera-type");
+    const isChecked = $checkbox.is(":checked");
+    const $label = $checkbox.closest("label");
+
+    if (isChecked) {
+      $label.find(".icon-on").show();
+      $label.find(".icon-off").hide();
+      $label.attr("title", "Camera type is orthographic");
+    } else {
+      $label.find(".icon-on").hide();
+      $label.find(".icon-off").show();
+      $label.attr("title", "Camera type is perspective");
+    }
+
+    console.log("Camera type:", isChecked ? "Orthographic" : "Perspective");
+
+    viewport3D.toggleProjectionMode(viewport3D);
   };
 
   // ===============================================================
@@ -523,6 +563,10 @@ define(function (require) {
       toggleHideObject(this.checked);
     });
 
+    $("#icon-toggle-camera-type").click(function () {
+      toggleCameraType();
+    });
+
     $("#menuResetHiddenObjects").click(function () {
       resetHiddenObjects();
     });
@@ -657,6 +701,14 @@ define(function (require) {
       this.Renderer = Renderer;
       this.simulationStep = 0;
       this.sectionCutsLoader = sectionCutsLoader;
+      this.sectionCutsTurnedOn = false;
+    }
+
+    turnOffSectionCuts() {
+      this.sectionCutsTurnedOn = false;
+    }
+    turnOnSectionCuts() {
+      this.sectionCutsTurnedOn = true;
     }
 
     registerSectionCutListener() {
@@ -788,25 +840,29 @@ define(function (require) {
 
     loadSectionCuts(projectId, currentSettings, withUpdate = true) {
       let self = this;
-      let calculateCutSection = async function () {
-        if (settings.showFaces || settings.showEdges) {
-          try {
-            // console.debug("RendererProject, Viewport", currentProject, viewport3D)
-            await self.sectionCutsLoader.loadSectionCuts(
-              self.project,
-              viewport3D,
-              false,
-              settings
-            );
-          } finally {
-            console.debug("Calculate section cuts done");
+      if (this.sectionCutsTurnedOn) {
+        let calculateCutSection = async function () {
+          if (settings.showFaces || settings.showEdges) {
+            try {
+              // console.debug("RendererProject, Viewport", currentProject, viewport3D)
+              await self.sectionCutsLoader.loadSectionCuts(
+                self.project,
+                viewport3D,
+                false,
+                settings
+              );
+            } finally {
+              console.debug("Calculate section cuts done");
+            }
           }
-        }
-      };
+        };
 
-      let settings = currentSettings;
-
-      calculateCutSection();
+        let settings = currentSettings;
+        calculateCutSection();
+      } else {
+        // Remove existing section cuts
+        self.viewport3D.emptySectionCutSceneForSectionCutGeometry();
+      }
     }
   }
 

@@ -13,9 +13,9 @@
     "serve": "live-server --verbose"
   },
   "devDependencies": {
-    "bimplus-renderer": "1.8.5",
+    "bimplus-renderer": "1.8.8",
     "bimplus-webclient": "0.1.62",
-    "bimplus-websdk": "1.0.51",
+    "bimplus-websdk": "1.0.52",
     "jquery": "3.7.1",
     "requirejs": "2.3.7"
   },

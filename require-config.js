@@ -6,7 +6,16 @@ require = {
     "babel-polyfill": "node_modules/babel-polyfill/dist/polyfill.min",
     "bimplus/websdk": "node_modules/bimplus-websdk/dist/bimplus-websdk",
     "bimplus/renderer": "node_modules/bimplus-renderer/dist/bimplus-renderer",
-    "bimplus/webclient":
-      "node_modules/bimplus-webclient/dist/bimplus-webclient",
+    "bimplus/webclient": "node_modules/bimplus-webclient/dist/bimplus-webclient",
+    "oidc-client-ts": "node_modules/oidc-client-ts/dist/browser/oidc-client-ts.min",
+    "SectionCuts": "renderer/sectionCuts",
+    "utils": "renderer/utils",
+    "settings": "renderer/settings",
+    "commands": "renderer/commands",
   },
+  shim: {
+    "oidc-client-ts": {
+      exports: "oidc"
+    }
+  }
 };

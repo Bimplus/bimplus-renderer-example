@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xml:lang="en">
   <head>
-    <title>BimplusRendererExample</title>
+    <meta charset="utf-8" />
+    <title>Bimplus Projects - Renderer Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script
       type="text/javascript"
       src="node_modules/jquery/dist/jquery.js"
@@ -11,43 +13,193 @@
       src="node_modules/requirejs/require.js"
       data-main="projects.js"
     ></script>
-    <link rel="stylesheet" type="text/css" href="BimplusRendererExample.css" />
-    <link
-      rel="stylesheet"
-      href="node_modules/material-design-lite/material.min.css"
-    />
-    <script src="node_modules/material-design-lite/material.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    />
-    <link
-      rel="stylesheet"
-      href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"
-    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #f5f5f5;
+        min-height: 100vh;
+        color: #333;
+        padding: 20px;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+
+      .header {
+        padding: 30px 40px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .title {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 8px;
+        font-weight: 400;
+      }
+
+      .subtitle {
+        font-size: 16px;
+        color: #666;
+      }
+
+      .content {
+        padding: 0;
+        background-color: #fff;
+      }
+
+      .projects-iframe {
+        border: 0;
+        width: 100%;
+        height: calc(100vh - 200px);
+        min-height: 600px;
+        background-color: white;
+        display: block;
+      }
+
+      .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 40px;
+        background-color: #fff;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e3f2fd;
+        border-radius: 50%;
+        border-top-color: #1976d2;
+        animation: spin 1s ease-in-out infinite;
+        margin-bottom: 20px;
+      }
+
+      .loading-text {
+        font-size: 16px;
+        color: #666;
+        text-align: center;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .status-message {
+        margin: 20px 40px;
+        padding: 12px 16px;
+        border-radius: 6px;
+        font-size: 14px;
+        display: none;
+      }
+
+      .status-success {
+        background-color: #e8f5e8;
+        color: #2e7d2e;
+        border: 1px solid #c3e6c3;
+      }
+
+      .status-error {
+        background-color: #ffeaea;
+        color: #d32f2f;
+        border: 1px solid #ffcdd2;
+      }
+
+      .status-info {
+        background-color: #e3f2fd;
+        color: #1976d2;
+        border: 1px solid #bbdefb;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+
+        .header {
+          padding: 20px 20px 15px;
+        }
+
+        .title {
+          font-size: 24px;
+        }
+
+        .subtitle {
+          font-size: 14px;
+        }
+
+        .projects-iframe {
+          height: calc(100vh - 160px);
+          min-height: 500px;
+        }
+
+        .status-message {
+          margin: 15px 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header {
+          padding: 15px 15px 10px;
+        }
+
+        .title {
+          font-size: 22px;
+        }
+
+        .projects-iframe {
+          height: calc(100vh - 140px);
+          min-height: 400px;
+        }
+      }
+    </style>
   </head>
 
   <body>
-    <div class="mdl-card mdl-shadow--4dp center">
-      <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Select project</h2>
+    <div class="container">
+      <div class="header">
+        <h2 class="title">Select Project</h2>
+        <p class="subtitle">Choose a project to open in the renderer</p>
       </div>
-      <div class="mdl-card__media">
+
+      <div id="statusMessage" class="status-message"></div>
+
+      <div class="content">
+        <div id="loadingContainer" class="loading-container">
+          <div class="loading-spinner"></div>
+          <div class="loading-text">Loading projects...</div>
+        </div>
+        
         <iframe
           title="Projects"
           id="projects"
-          style="
-            text-align: left;
-            border: 0;
-            height: 1000px;
-            width: 100%;
-            background-color: white;
-            margin: 0;
-            padding: 0;
-          "
+          class="projects-iframe"
+          style="display: none;"
         >
         </iframe>
       </div>
     </div>
+
+    <script>
+      // Show iframe once it loads and hide loading
+      document.getElementById('projects').addEventListener('load', function() {
+        document.getElementById('loadingContainer').style.display = 'none';
+        document.getElementById('projects').style.display = 'block';
+      });
+    </script>
   </body>
 </html>

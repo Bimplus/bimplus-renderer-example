@@ -25,6 +25,313 @@
       href="https://code.getmdl.io/1.3.0/material.grey-orange.min.css"
     />
     <link rel="stylesheet" type="text/css" href="BimplusRendererExample.css" />
+    <style>
+      /* ========================================
+         COMPANY THEME CUSTOMIZATION
+         ======================================== */
+      
+      :root {
+        /* Allplan OIDC Theme Colors - Matching allplan-oidc-web-example */
+        --company-primary: #1976d2;           /* Primary blue */
+        --company-primary-dark: #1565c0;      /* Darker blue for hover states */
+        --company-primary-light: #e3f2fd;     /* Light blue for backgrounds */
+        --company-primary-pale: #f3f9ff;      /* Very light blue */
+        
+        /* Secondary Colors */
+        --company-secondary: #f5f5f5;         /* Light gray for secondary buttons */
+        --company-secondary-dark: #eeeeee;    /* Darker gray for hover */
+        --company-secondary-light: #fafafa;   /* Very light gray */
+        
+        /* Neutral Colors - Matching the example */
+        --company-neutral-50: #fafafa;
+        --company-neutral-100: #f5f5f5;
+        --company-neutral-200: #eeeeee;
+        --company-neutral-300: #e0e0e0;
+        --company-neutral-400: #ddd;          /* Border color from example */
+        --company-neutral-500: #ccc;          /* Secondary border color */
+        --company-neutral-600: #666;          /* Subtitle text color */
+        --company-neutral-700: #333;          /* Main text color */
+        --company-neutral-800: #424242;
+        --company-neutral-900: #212121;
+        
+        /* Status Colors - Matching the example */
+        --company-success: #2e7d2e;           /* Success text color */
+        --company-success-light: #e8f5e8;     /* Success background */
+        --company-success-border: #c3e6c3;    /* Success border */
+        --company-warning: #ff9800;
+        --company-warning-light: #fff3e0;
+        --company-error: #d32f2f;             /* Error text color */
+        --company-error-light: #ffeaea;       /* Error background */
+        --company-error-border: #ffcdd2;      /* Error border */
+        --company-info: var(--company-primary);
+        --company-info-light: var(--company-primary-light);
+        
+        /* Token/Content Colors */
+        --company-token-bg: #f8f9fa;          /* Token section background */
+        --company-content-bg: white;          /* Main content background */
+        --company-page-bg: #f5f5f5;           /* Page background */
+        
+        /* Typography Colors */
+        --company-text-primary: #333;         /* Main text */
+        --company-text-secondary: #666;       /* Secondary text */
+        --company-text-on-primary: white;     /* Text on primary color */
+        
+        /* Interactive Elements */
+        --company-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);           /* Card shadow */
+        --company-shadow-hover: 0 4px 12px rgba(25, 118, 210, 0.3); /* Button hover shadow */
+        --company-border-radius: 8px;         /* Standard border radius */
+        --company-border-radius-button: 24px; /* Button border radius */
+      }
+
+      /* ========================================
+         THEME OVERRIDES FOR MDL COMPONENTS
+         ======================================== */
+
+      /* Page background to match allplan-oidc-web-example */
+      body {
+        background-color: var(--company-page-bg) !important;
+      }
+
+      /* Header styling */
+      .mdl-layout__header {
+        background-color: var(--company-primary) !important;
+        box-shadow: var(--company-shadow) !important;
+      }
+
+      .mdl-layout__header .mdl-layout__header-row {
+        background-color: var(--company-primary) !important;
+      }
+
+      /* Buttons - matching the allplan-oidc-web-example button style */
+      .mdl-button--colored,
+      .mdl-button--fab.mdl-button--colored,
+      .mdl-button--raised.mdl-button--colored {
+        background-color: var(--company-primary) !important;
+        color: var(--company-text-on-primary) !important;
+        border-radius: var(--company-border-radius-button) !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .mdl-button--colored:hover,
+      .mdl-button--fab.mdl-button--colored:hover,
+      .mdl-button--raised.mdl-button--colored:hover {
+        background-color: var(--company-primary-dark) !important;
+        transform: translateY(-1px) !important;
+        box-shadow: var(--company-shadow-hover) !important;
+      }
+
+      /* Secondary buttons - matching the secondary style */
+      .mdl-button--accent,
+      .mdl-button--fab.mdl-button--accent {
+        background-color: var(--company-secondary) !important;
+        color: var(--company-text-primary) !important;
+        border: 1px solid var(--company-neutral-400) !important;
+      }
+
+      .mdl-button--accent:hover,
+      .mdl-button--fab.mdl-button--accent:hover {
+        background-color: var(--company-secondary-dark) !important;
+        border-color: var(--company-neutral-500) !important;
+      }
+
+      /* Icon toggles */
+      .mdl-icon-toggle.is-checked .mdl-icon-toggle__label {
+        color: var(--company-primary) !important;
+      }
+
+      .mdl-icon-toggle.is-focused .mdl-icon-toggle__label {
+        background-color: var(--company-primary-light) !important;
+      }
+
+      /* Selection states */
+      .mdl-list__item.active,
+      .mdl-navigation__link.active {
+        background-color: var(--company-primary-light) !important;
+        color: var(--company-primary) !important;
+        font-weight: 500 !important;
+      }
+
+      /* Drawer/Sidebar styling */
+      .mdl-layout__drawer {
+        background-color: var(--company-content-bg) !important;
+        border-right: 1px solid var(--company-neutral-300) !important;
+      }
+
+      /* Spinner */
+      .mdl-spinner__layer-1 .mdl-spinner__circle-clipper .mdl-spinner__circle {
+        border-color: var(--company-primary) !important;
+      }
+
+      .mdl-spinner__layer-2 .mdl-spinner__circle-clipper .mdl-spinner__circle {
+        border-color: var(--company-primary-light) !important;
+      }
+
+      /* Menu hover states */
+      .mdl-menu__item:hover {
+        background-color: var(--company-neutral-100) !important;
+      }
+
+      /* Custom enhancements */
+      .project-selection-button:hover {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+      }
+
+      /* Card shadows and styling to match allplan-oidc-web-example */
+      .mdl-card {
+        background-color: var(--company-content-bg) !important;
+        border-radius: var(--company-border-radius) !important;
+        box-shadow: var(--company-shadow) !important;
+      }
+
+      /* Focus states */
+      .mdl-button:focus,
+      .mdl-icon-toggle:focus {
+        outline: 2px solid var(--company-primary-light) !important;
+        outline-offset: 2px;
+      }
+
+      /* Text colors */
+      .mdl-card__title-text {
+        color: var(--company-text-primary) !important;
+      }
+
+      .mdl-layout-title {
+        color: var(--company-text-on-primary) !important;
+      }
+
+      /* List items styling */
+      .mdl-list li {
+        color: var(--company-text-primary) !important;
+        border-bottom: 1px solid var(--company-neutral-200) !important;
+      }
+
+      .mdl-list li:hover {
+        background-color: var(--company-neutral-100) !important;
+      }
+
+      /* ========================================
+         ALLPLAN-SPECIFIC CUSTOMIZATIONS
+         ======================================== */
+
+      /* Status messages matching allplan-oidc-web-example style */
+      .status-message,
+      .mdl-card__supporting-text.status {
+        padding: 12px !important;
+        border-radius: 6px !important;
+        font-size: 14px !important;
+        margin: 20px !important;
+      }
+
+      .status-success,
+      .status-message.success {
+        background-color: var(--company-success-light) !important;
+        color: var(--company-success) !important;
+        border: 1px solid var(--company-success-border) !important;
+      }
+
+      .status-error,
+      .status-message.error {
+        background-color: var(--company-error-light) !important;
+        color: var(--company-error) !important;
+        border: 1px solid var(--company-error-border) !important;
+      }
+
+      .status-info,
+      .status-message.info {
+        background-color: var(--company-info-light) !important;
+        color: var(--company-info) !important;
+        border: 1px solid var(--company-primary-light) !important;
+      }
+
+      .mdl-button--fab {
+        border-radius: 50% !important;
+        box-shadow: var(--company-shadow) !important;
+        transition: all 0.2s ease !important;
+      }
+
+      .mdl-button--fab:hover {
+        transform: translateY(-2px) !important;
+        box-shadow: var(--company-shadow-hover) !important;
+      }
+
+      /* Disabled state styling */
+      .mdl-button:disabled,
+      .mdl-button--fab:disabled {
+        opacity: 0.6 !important;
+        cursor: not-allowed !important;
+        transform: none !important;
+      }
+
+      /* Loading spinner with company colors */
+      .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 60px 40px;
+      }
+
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid var(--company-primary-light);
+        border-radius: 50%;
+        border-top-color: var(--company-primary);
+        animation: spin 1s ease-in-out infinite;
+        margin-bottom: 20px;
+      }
+
+      .loading-text {
+        font-size: 16px;
+        color: var(--company-text-secondary);
+        text-align: center;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Typography matching allplan-oidc-web-example */
+      body,
+      .mdl-layout {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !important;
+      }
+
+      /* Improved contrast and readability */
+      .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+        color: var(--company-text-primary) !important;
+        padding: 12px 24px !important;
+        transition: background-color 0.2s ease !important;
+      }
+
+      .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
+        background-color: var(--company-neutral-100) !important;
+      }
+
+      /* Enhanced focus indicators for accessibility */
+      .mdl-button:focus,
+      .mdl-icon-toggle:focus,
+      .mdl-navigation__link:focus {
+        outline: 2px solid var(--company-primary) !important;
+        outline-offset: 2px !important;
+        background-color: var(--company-primary-light) !important;
+      }
+
+      /* Responsive design improvements */
+      @media (max-width: 768px) {
+        .mdl-layout__drawer {
+          box-shadow: var(--company-shadow) !important;
+        }
+        
+        .objectPropertiesCard {
+          margin: 10px !important;
+          width: calc(100vw - 20px) !important;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -55,9 +362,10 @@
         <div class="page-content full-area">
           <div class="full-height full-area" id="mainViewportContainer">
             <div id="spinner" class="centerSpinner">
-              <div
-                class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"
-              ></div>
+              <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Loading...</div>
+              </div>
             </div>
 
             <!-- Object properties panel -->

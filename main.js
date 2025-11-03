@@ -1,29 +1,24 @@
 define(function (require) {
 
-  // Load websdk
-  let WebSdk = require('bimplus/websdk');
-
-  // Initalize api wrapper
-  let api = null;
+  let AllplanUserManager = require('allplanUserManager');
 
   $("#loginButton").click(function (event) {
 
-    // Use environment dev,stage or prod
     let environment = document.querySelector('input[name="options"]:checked')?.value;
+    let userManager = AllplanUserManager.createUserManager(environment);
 
-    let user = $("#user").val();
-    let password = $("#password").val();
+    userManager.signinRedirect();
+  });
 
-    api = new WebSdk.Api(WebSdk.createDefaultConfig(environment));
+  $("#logoutButton").click(function (event) {
+    let environment = document.querySelector('input[name="options"]:checked')?.value;
+    let userManager = AllplanUserManager.createUserManager(environment);
 
-    // Make authorization request to Bimplus, providing user name, password and application id
-    api.authorize.post(user, password, '5F43560D-9B0C-4F3C-85CB-B5721D098F7B').done(function (data, status, xhr) {
-      window.location.href = "/projects.html"
-        + "?token=" + data.access_token 
-        + "&env="   + environment;
-    }).fail(function (data) {
-      // Authorization failed
-      alert("Login to Bimplus failed!");
+    userManager.signoutRedirect().then(function () {
+      console.log("User logged out");
+      window.location.href = "/index.html"
+    }).catch(function (err) {
+      console.error(err);
     });
   });
 });

@@ -2,9 +2,9 @@ Bimplus Renderer integration example
 =========
 
 This small application demonstrates the usage of the bimplus websdk components
-- [bimplus-websdk](https://doc.allplan.com/display/bimpluspublic/Bimplus+Web+SDK+Reference)
-- [bimplus-webclient](https://doc.allplan.com/display/bimpluspublic/Web+Client+Messages)
-- [bimplus-renderer](https://doc.allplan.com/display/bimpluspublic/Bimplus+Renderer+Reference)
+- [bimplus-websdk](https://nemetschekprime.atlassian.net/wiki/spaces/bimpluspublic/pages/1090127532/Bimplus+Web+SDK+Reference)
+- [bimplus-webclient](https://nemetschekprime.atlassian.net/wiki/spaces/bimpluspublic/pages/1090127449/Bimplus+Webclient+Reference)
+- [bimplus-renderer](https://nemetschekprime.atlassian.net/wiki/spaces/bimpluspublic/pages/1090127443/Bimplus+Renderer+Reference)
 
 Packages are available in [npmjs](https://www.npmjs.com/search?q=bimplus) or in the
 Bimplus repositories at [github](https://github.com/bimplus).

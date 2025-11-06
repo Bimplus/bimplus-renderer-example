@@ -13,7 +13,7 @@
     "serve": "live-server --verbose --host=localhost --port=8080"
   },
   "devDependencies": {
-    "bimplus-renderer": "1.8.17",
+    "bimplus-renderer": "1.8.18",
     "bimplus-webclient": "0.1.63",
     "bimplus-websdk": "1.0.56",
     "jquery": "3.7.1",
